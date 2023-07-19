@@ -40,7 +40,12 @@ jobs:
           existing_sbom=$(curl -k -X GET -H "X-Api-Key: $API_KEY" "https://dt-api.staging.cryptosoft.com/api/v1/bom/cyclonedx/project/88bd1cd6-704c-41df-9c4f-e6f4b94996cc?format=json&variant=withVulnerabilities&download=true")
           
           # Combine the existing SBOM with the generated SBOM 
-          echo jq -s '.[0] * .[1]' bom.json existing_sbom.json > combined_sbom.json
+          #echo jq -s '.[0] * .[1]' bom.json existing_sbom.json > combined_sbom.json
+          echo '[' > combined_sbom.json
+          echo "$existing_sbom" >> combined_sbom.json
+          echo ',' >> combined_sbom.json
+          cat bom.json >> combined_sbom.json
+          echo ']' >> combined_sbom.json
           cat combined_sbom.json
           
       - name: Upload aggregated SBOM to Dependency Track

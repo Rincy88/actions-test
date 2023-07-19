@@ -59,7 +59,7 @@ jobs:
           PROJECT_VERSION="1.0.0"
           
           # API request to upload the aggregated SBOM to Dependency Track
-          response=$(curl -k -X POST "$API_ENDPOINT/bom" \
+          response=$(curl -k -X PUT "$API_ENDPOINT/bom" \
                      -H "Content-Type: multipart/form-data" \
                      -H "X-Api-Key: $API_KEY" \
                      -F "autoCreate=true" \

@@ -42,7 +42,7 @@ jobs:
           # Combine the existing SBOM with the generated SBOM
           aggregated_sbom="aggregated_sbom.json"
           echo "$existing_sbom" > "$aggregated_sbom"
-          echo "$existing_sbom" | jq -s '.[0] * .[1]' "bom.json" > "aggregated_sbom.json"
+          cat existing_sbom.json generated_sbom.json | jq -s add > aggregated_sbom.json
           cat "$aggregated_sbom"
           
       - name: Upload aggregated SBOM to Dependency Track
